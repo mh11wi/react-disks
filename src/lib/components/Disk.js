@@ -2,8 +2,8 @@ import { Fragment, React } from 'react';
 import ReactCurvedText from 'react-curved-text';
  
 const Disk = (props) => {
-  const text = props.text && typeof props.text === 'string' ? props.text : ' ';
-  const slices = text.split('').map((character, index) => {
+  const text = Array.isArray(props.text) ? props.text : [' '];
+  const columns = text.map((columnText, index) => {
     const svgProps = {
       "style": {
         "transform": `rotate(-${index * 360 / props.text.length}deg)`, 
@@ -19,7 +19,7 @@ const Disk = (props) => {
         cy={props.radius}
         rx={props.radius}
         ry={props.radius}
-        text={character}
+        text={columnText}
         textProps={{"style": {"fontSize": "1rem"}}}
         svgProps={svgProps}
       />
@@ -28,7 +28,7 @@ const Disk = (props) => {
   
   return (
     <Fragment>
-      {slices}
+      {columns}
     </Fragment>
   );
 };
