@@ -84,6 +84,7 @@ const DisksContainer = (props) => {
         style={{"zIndex": `${props.disksText.length - index}`}}
         onClick={(event) => handleClick(event, index)}
         className={index === selectedDisk ? "Disk active" : "Disk"}
+        useDyslexicFont={props.useDyslexicFont}
       />
     );
   });

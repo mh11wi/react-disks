@@ -9,6 +9,12 @@ const Disk = (props) => {
         "transform": `rotate(-${index * 360 / props.text.length}deg)`
       }
     };
+    const textProps = {
+      "style": {
+        "fontSize": "1rem", 
+        "fontFamily": `${props.useDyslexicFont ? 'OpenDyslexicRegular' : 'inherit'}`
+      }
+    };
     return (
       <ReactCurvedText
         key={index}
@@ -19,7 +25,7 @@ const Disk = (props) => {
         rx={props.radius - 8}
         ry={props.radius - 8}
         text={columnText}
-        textProps={{"style": {"fontSize": "1rem"}}}
+        textProps={textProps}
         svgProps={svgProps}
       />
     );

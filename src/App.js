@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      <DisksContainer disksText={disksText} />
+      <DisksContainer disksText={disksText} useDyslexicFont={true} />
     </div>
   );
 }
