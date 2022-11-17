@@ -1,14 +1,32 @@
 .DisksContainer {
-  display: grid;
-  grid-template-columns: 1fr;
-  justify-items: center;
-  align-items: center;
   height: inherit;
 }
 
-svg {
+.DisksContainer, .ColumnsContainer {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.Disk, svg {
   grid-row-start: 1;
   grid-column-start: 1;
+}
+
+svg, .ColumnsContainer {
+  pointer-events: none;
+}
+
+.Disk {
+  background-color: white;
+  border: 1px solid #666;
+  box-shadow: 0 0 1.5rem #ccc;
   border-radius: 50%;
-  padding: 0.5rem;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.Disk.active {
+  /* TO-DO: themeing */
+  background-color: yellow; 
 }

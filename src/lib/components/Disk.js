@@ -1,4 +1,4 @@
-import { Fragment, React } from 'react';
+import React from 'react';
 import ReactCurvedText from 'react-curved-text';
  
 const Disk = (props) => {
@@ -6,8 +6,7 @@ const Disk = (props) => {
   const columns = text.map((columnText, index) => {
     const svgProps = {
       "style": {
-        "transform": `rotate(-${index * 360 / props.text.length}deg)`, 
-        "border": `${index === 0 ? 1 : 0}px solid #616161`
+        "transform": `rotate(-${index * 360 / props.text.length}deg)`
       }
     };
     return (
@@ -17,8 +16,8 @@ const Disk = (props) => {
         height={2 * props.radius}
         cx={props.radius}
         cy={props.radius}
-        rx={props.radius}
-        ry={props.radius}
+        rx={props.radius - 8}
+        ry={props.radius - 8}
         text={columnText}
         textProps={{"style": {"fontSize": "1rem"}}}
         svgProps={svgProps}
@@ -27,9 +26,11 @@ const Disk = (props) => {
   });
   
   return (
-    <Fragment>
-      {columns}
-    </Fragment>
+    <button className={props.className} style={props.style} onClick={props.onClick}>
+      <div className="ColumnsContainer">
+        {columns}
+      </div>
+    </button>
   );
 };
 

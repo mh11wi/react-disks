@@ -2,7 +2,6 @@ import { DisksContainer } from './lib';
 import './App.css';
 
 function App() {
-  /*
   const disksText = [
     ['a', 'b', 'c', 'd'], 
     ['e', 'f', 'g', 'h'], 
@@ -12,13 +11,14 @@ function App() {
     ['u', 'v', 'w', 'x'], 
     ['y', 'z', '1', '2']
   ];
-  */
   
+  /*
   const disksText = [
     [1, 2, 3, 4], 
     [5, 6, 7, 8], 
     [9, 10, 11, 12]
   ];
+  */
 
   return (
     <div className="App">

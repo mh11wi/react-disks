@@ -1,23 +1,94 @@
-import React from 'react';
+import { React, useState } from 'react';
 import Disk from './Disk';
 import '../index.css';
 
+function getElementCenter(element) {
+  const box = element.getBoundingClientRect();
+  const x = (box.left + box.right) / 2;
+  const y = (box.top + box.bottom) / 2;
+  return { x, y };
+}
+
+function isPointInCircle(x, y, cx, cy, radius) {
+  const distanceSquared = (x - cx) * (x - cx) + (y - cy) * (y - cy);
+  return distanceSquared <= radius * radius;
+}
+
 const DisksContainer = (props) => {
+  const [selectedDisk, setSelectedDisk] = useState(-1);
+  
+  const getRadius = (index) => {
+    // TO-DO: responsive?
+    const k = Math.max(40, 15 * (8 - props.disksText.length));
+    return k * (index + 1);
+  }
+
+  const getTrueIndex = (event, index) => {
+    const targetCenter = getElementCenter(event.target);
+    for (let i = index; i < props.disksText.length; i++) {
+      const radius = getRadius(i);
+      const inDisk = isPointInCircle(
+        event.clientX,
+        event.clientY,
+        targetCenter.x,
+        targetCenter.y,
+        radius
+      );
+      
+      if (inDisk) {
+        return i;
+      }
+    }
+    
+    return -1;
+  }
+  
+  const handleClick = (event, index) => {
+    // Handle if event triggered by tab + enter.
+    if (!event.detail) {
+      if (selectedDisk === index) {
+        setSelectedDisk(-1);
+      } else {
+        setSelectedDisk(index);
+      }
+      return;
+    }
+    
+    /*
+     * Handle if event triggered by mouse/touch.
+     * Because a Disk's bounding rectangle overlaps the next, need to
+     * calculate (by radius) what actual Disk was clicked, if any.
+     */
+    const trueIndex = getTrueIndex(event, index);
+    if (trueIndex === -1) {
+      document.activeElement.blur();
+      return;
+    } else if (selectedDisk === trueIndex) {
+      setSelectedDisk(-1);
+    } else {
+      setSelectedDisk(trueIndex);
+    }
+    document.getElementsByClassName('Disk')[trueIndex].focus();
+  }
+  
   if (!Array.isArray(props.disksText)) {
     return null;
   }
   
   const disks = props.disksText.map((text, index) => {
-    const k = Math.max(32, 15 * (8 - props.disksText.length));
     return (
       <Disk 
         key={index} 
         text={text} 
-        radius={k * (index + 1)}
+        radius={getRadius(index)}
+        style={{"zIndex": `${props.disksText.length - index}`}}
+        onClick={(event) => handleClick(event, index)}
+        className={index === selectedDisk ? "Disk active" : "Disk"}
       />
     );
   });
   
+  // TO-DO: add controls to spin disk when selected
   return (
     <div className="DisksContainer">
       {disks}
