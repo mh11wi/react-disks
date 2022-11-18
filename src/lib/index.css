@@ -5,6 +5,7 @@
 
 .DisksContainer {
   height: inherit;
+  grid-template: 1fr / 1fr 1fr 1fr;
 }
 
 .DisksContainer, .ColumnsContainer {
@@ -13,16 +14,18 @@
   align-items: center;
 }
 
-.Disk, svg {
-  grid-row-start: 1;
-  grid-column-start: 1;
-}
-
 svg, .ColumnsContainer {
   pointer-events: none;
 }
 
+svg {
+  grid-row-start: 1;
+  grid-column-start: 1;
+}
+
 .Disk {
+  grid-row-start: 1;
+  grid-column-start: 2;
   background-color: white;
   border: 1px solid #666;
   box-shadow: 0 0 1.5rem #ccc;
@@ -33,5 +36,34 @@ svg, .ColumnsContainer {
 
 .Disk.active {
   /* TO-DO: themeing */
-  background-color: yellow; 
+  background-color: lightcyan; 
+}
+
+.rotateClockwise {
+  grid-row-start: 1;
+  grid-column-start: 1;
+  filter: drop-shadow(5px 2px 3px #ccc);
+  transform: rotate(45deg);
+}
+
+.rotateCounterClockwise {
+  grid-row-start: 1;
+  grid-column-start: 3;
+  filter: drop-shadow(-5px 2px 3px #ccc);
+  transform: rotate(-45deg);
+}
+  
+.controls {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: darkcyan;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.controls:hover, .controls:focus {
+  color: cyan;
 }
