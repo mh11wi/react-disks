@@ -1,3 +1,3 @@
-import DisksContainer from './components/DisksContainer';
+import ReactDisks from './components/ReactDisks';
 
-export { DisksContainer };
+export { ReactDisks };

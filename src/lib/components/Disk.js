@@ -12,7 +12,7 @@ const Disk = (props) => {
     const textProps = {
       "style": {
         "fontSize": "1rem", 
-        "fontFamily": `${props.useDyslexicFont ? 'OpenDyslexicRegular' : 'inherit'}`
+        "fontFamily": "OpenDyslexicRegular"
       }
     };
     return (

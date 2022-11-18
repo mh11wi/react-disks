@@ -15,9 +15,6 @@ function isPointInCircle(x, y, cx, cy, radius) {
 }
 
 const DisksContainer = (props) => {
-  const [selectedDisk, setSelectedDisk] = useState(-1);
-  const [rotatedDisksText, setRotatedDisksText] = useState(JSON.parse(JSON.stringify(props.disksText)));
-  
   const getRadius = (index) => {
     const k = Math.max(40, 15 * (8 - props.disksText.length));
     return k * (index + 1);
@@ -46,10 +43,10 @@ const DisksContainer = (props) => {
   const handleClick = (event, index) => {
     // Handle if event triggered by tab + enter.
     if (!event.detail) {
-      if (selectedDisk === index) {
-        setSelectedDisk(-1);
+      if (props.selectedDisk === index) {
+        props.setSelectedDisk(-1);
       } else {
-        setSelectedDisk(index);
+        props.setSelectedDisk(index);
       }
       return;
     }
@@ -63,38 +60,12 @@ const DisksContainer = (props) => {
     if (trueIndex === -1) {
       document.activeElement.blur();
       return;
-    } else if (selectedDisk === trueIndex) {
-      setSelectedDisk(-1);
+    } else if (props.selectedDisk === trueIndex) {
+      props.setSelectedDisk(-1);
     } else {
-      setSelectedDisk(trueIndex);
+      props.setSelectedDisk(trueIndex);
     }
     document.getElementsByClassName('Disk')[trueIndex].focus();
-  }
-  
-  const rotateDisk = (direction) => {
-    const degrees = direction * 360 / props.disksText[selectedDisk].length;
-    const el = document.getElementsByClassName('ColumnsContainer')[selectedDisk];
-    
-    // TO-DO: fix this animation
-    // Subsequent clicks are not animating at all in ios
-    // First clicks jump to wrong column on chrome/firefox, yet subsequent ones are fine strangely
-    const animation = el.animate(
-      {"transform": `rotate(${degrees}deg)`},
-      {"duration": 1000, "fill": "forwards", "composite": "accumulate"}
-    );
-
-    animation.onfinish = () => {
-      animation.commitStyles();
-    }
-    
-    const clone = JSON.parse(JSON.stringify(rotatedDisksText));
-    if (direction === 1) {
-      clone[selectedDisk].push(clone[selectedDisk].shift());
-      setRotatedDisksText(clone);
-    } else {
-      clone[selectedDisk].unshift(clone[selectedDisk].pop());
-      setRotatedDisksText(clone);
-    }
   }
   
   if (!Array.isArray(props.disksText)) {
@@ -109,30 +80,14 @@ const DisksContainer = (props) => {
         radius={getRadius(index)}
         style={{"zIndex": `${props.disksText.length - index}`}}
         onClick={(event) => handleClick(event, index)}
-        className={index === selectedDisk ? "Disk active" : "Disk"}
-        useDyslexicFont={props.useDyslexicFont}
+        className={index === props.selectedDisk ? "Disk active" : "Disk"}
       />
     );
   });
 
-  // TO-DO: consider extracting buttons in a top level component
   return (
     <div className="DisksContainer">
-      <button 
-        className="controls rotateClockwise" 
-        style={{"visibility": `${selectedDisk > -1 ? 'visible' : 'hidden'}`}} 
-        onClick={() => rotateDisk(1)}
-      >
-        &#8635;
-      </button>
       {disks}
-      <button 
-        className="controls rotateCounterClockwise" 
-        style={{"visibility": `${selectedDisk > -1 ? 'visible' : 'hidden'}`}} 
-        onClick={() => rotateDisk(-1)}
-      >
-        &#8634;
-      </button>
     </div>
   );
 };

@@ -3,15 +3,19 @@
 	src: url(OpenDyslexic-Regular.woff2);
 } 
 
-.DisksContainer {
-  height: inherit;
+.ReactDisks {
   grid-template: 1fr / 1fr 1fr 1fr;
-}
+  height: inherit;
+}  
 
-.DisksContainer, .ColumnsContainer {
+.ReactDisks, .DisksContainer, .ColumnsContainer {
   display: grid;
   justify-items: center;
   align-items: center;
+}
+
+.DisksContainer {
+  height: inherit;
 }
 
 svg, .ColumnsContainer {

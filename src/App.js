@@ -1,4 +1,4 @@
-import { DisksContainer } from './lib';
+import { ReactDisks } from './lib';
 import './App.css';
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      <DisksContainer disksText={disksText} useDyslexicFont={true} />
+      <ReactDisks disksText={disksText} />
     </div>
   );
 }
