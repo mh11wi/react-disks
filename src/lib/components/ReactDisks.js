@@ -7,20 +7,17 @@ const ReactDisks = (props) => {
   const [rotatedDisksText, setRotatedDisksText] = useState(JSON.parse(JSON.stringify(props.disksText || [])));
   
   const rotateDisk = (direction) => {
-    const degrees = direction * 360 / props.disksText[selectedDisk].length;
-    const el = document.getElementsByClassName('ColumnsContainer')[selectedDisk];
-    
-    // TO-DO: fix this animation
-    // Subsequent clicks are not animating at all in ios
-    // First clicks jump to wrong column on chrome/firefox, yet subsequent ones are fine strangely
-    const animation = el.animate(
-      {"transform": `rotate(${degrees}deg)`},
-      {"duration": 1000, "fill": "forwards", "composite": "accumulate"}
-    );
+    const element = document.getElementsByClassName('ColumnsContainer')[selectedDisk];
+    const currentTransform = element.style.transform;
+    const currentAngle = currentTransform === '' ? 0 : currentTransform.match(/rotate\((.*?)deg\)/)[1];
+    const angleToAdd = direction * 360 / props.disksText[selectedDisk].length;
 
-    animation.onfinish = () => {
-      animation.commitStyles();
-    }
+    const styles = {
+      "transition": "transform 0.5s linear",
+      "transform": `rotate(${Number(currentAngle) + Number(angleToAdd)}deg)`
+    };
+    Object.assign(element.style, styles);
+    setTimeout(() => element.style.transition = "none", 500);
     
     const clone = JSON.parse(JSON.stringify(rotatedDisksText));
     if (direction === 1) {
@@ -29,6 +26,10 @@ const ReactDisks = (props) => {
     } else {
       clone[selectedDisk].unshift(clone[selectedDisk].pop());
       setRotatedDisksText(clone);
+    }
+    
+    if (props.onRotate) {
+      props.onRotate(clone);
     }
   }
   

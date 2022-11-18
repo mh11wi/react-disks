@@ -1,6 +1,5 @@
-import { React, useState } from 'react';
+import React from 'react';
 import Disk from './Disk';
-import '../index.css';
 
 function getElementCenter(element) {
   const box = element.getBoundingClientRect();
