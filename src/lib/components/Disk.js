@@ -1,5 +1,20 @@
 import React from 'react';
 import ReactCurvedText from 'react-curved-text';
+import styled from 'styled-components';
+
+const DiskButton = styled.button`
+  color: black;
+  background-color: white;
+  border: 1px solid #666;
+  box-shadow: 0 0 1.5rem #ccc;
+  border-radius: 50%;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+
+    &.active {
+      background-color: ${props => props.theme.light};
+    }
+`;
  
 const Disk = (props) => {
   const text = Array.isArray(props.text) ? props.text : [' '];
@@ -32,7 +47,7 @@ const Disk = (props) => {
   });
   
   return (
-    <button 
+    <DiskButton
       className={props.className}
       aria-label={props.ariaLabel}
       style={props.style} 
@@ -41,7 +56,7 @@ const Disk = (props) => {
       <div className="ColumnsContainer">
         {columns}
       </div>
-    </button>
+    </DiskButton>
   );
 };
 

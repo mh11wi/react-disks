@@ -1,6 +1,23 @@
 import { React, useState } from 'react';
+import styled, { ThemeProvider } from 'styled-components';
 import DisksContainer from './DisksContainer';
 import '../index.css';
+
+const RotateButton = styled.button`
+  color: ${props => props.theme.dark};
+  background-color: transparent;
+  border: 0;
+  padding: 0 0.5rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  visibility: ${props => props.visibility};
+  
+    &:hover, &:focus {
+      color: ${props => props.theme.main};
+    }
+`;
 
 const ReactDisks = (props) => {
   const [selectedDisk, setSelectedDisk] = useState(-1);
@@ -35,29 +52,39 @@ const ReactDisks = (props) => {
   
   return (
     <div className="ReactDisks">
-      <DisksContainer 
-        disksText={props.disksText} 
-        selectedDisk={selectedDisk} 
-        setSelectedDisk={setSelectedDisk} 
-      />
-      <button 
-        className="controls rotateClockwise"
-        aria-label="Rotate selected disk clockwise"
-        style={{"visibility": `${selectedDisk > -1 ? 'visible' : 'hidden'}`}} 
-        onClick={() => rotateDisk(1)}
-      >
-        &#8635;
-      </button>
-      <button 
-        className="controls rotateCounterClockwise"
-        aria-label="Rotate selected disk counterclockwise"
-        style={{"visibility": `${selectedDisk > -1 ? 'visible' : 'hidden'}`}} 
-        onClick={() => rotateDisk(-1)}
-      >
-        &#8634;
-      </button>
+      <ThemeProvider theme={props.theme}>
+        <DisksContainer 
+          disksText={props.disksText} 
+          selectedDisk={selectedDisk} 
+          setSelectedDisk={setSelectedDisk} 
+        />
+        <RotateButton 
+          className="rotateClockwise"
+          aria-label="Rotate selected disk clockwise"
+          visibility={selectedDisk > -1 ? 'visible' : 'hidden'} 
+          onClick={() => rotateDisk(1)}
+        >
+          &#8635;
+        </RotateButton>
+        <RotateButton 
+          className="rotateCounterClockwise"
+          aria-label="Rotate selected disk counterclockwise"
+          visibility={selectedDisk > -1 ? 'visible' : 'hidden'}
+          onClick={() => rotateDisk(-1)}
+        >
+          &#8634;
+        </RotateButton>
+      </ThemeProvider>
     </div>
   );
 };
+
+ReactDisks.defaultProps = {
+  theme: {
+    main: "cyan",
+    light: "lightcyan",
+    dark: "darkcyan",
+  }
+}
 
 export default ReactDisks;

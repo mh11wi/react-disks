@@ -12,18 +12,19 @@ function App() {
     ['y', 'z', '1', '2']
   ];
   
-  /*
-  const disksText = [
-    [1, 2, 3, 4], 
-    [5, 6, 7, 8], 
-    [9, 10, 11, 12]
-  ];
-  */
+  const theme = {
+    main: "magenta",
+    light: "plum",
+    dark: "darkmagenta"
+  }
 
   return (
     <div className="App">
       <h1 className="sr-only">react-disks</h1>
-      <ReactDisks disksText={disksText} />
+      <ReactDisks 
+        disksText={disksText} 
+        // theme={theme}
+      />
     </div>
   );
 }
