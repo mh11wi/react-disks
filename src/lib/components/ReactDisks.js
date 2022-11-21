@@ -35,20 +35,22 @@ const ReactDisks = (props) => {
   
   return (
     <div className="ReactDisks">
-      <button 
-        className="controls rotateClockwise" 
-        style={{"visibility": `${selectedDisk > -1 ? 'visible' : 'hidden'}`}} 
-        onClick={() => rotateDisk(1)}
-      >
-        &#8635;
-      </button>
       <DisksContainer 
         disksText={props.disksText} 
         selectedDisk={selectedDisk} 
         setSelectedDisk={setSelectedDisk} 
       />
       <button 
-        className="controls rotateCounterClockwise" 
+        className="controls rotateClockwise"
+        aria-label="Rotate selected disk clockwise"
+        style={{"visibility": `${selectedDisk > -1 ? 'visible' : 'hidden'}`}} 
+        onClick={() => rotateDisk(1)}
+      >
+        &#8635;
+      </button>
+      <button 
+        className="controls rotateCounterClockwise"
+        aria-label="Rotate selected disk counterclockwise"
         style={{"visibility": `${selectedDisk > -1 ? 'visible' : 'hidden'}`}} 
         onClick={() => rotateDisk(-1)}
       >

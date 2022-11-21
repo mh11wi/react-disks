@@ -22,6 +22,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1 className="sr-only">react-disks</h1>
       <ReactDisks disksText={disksText} />
     </div>
   );

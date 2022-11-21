@@ -80,6 +80,7 @@ const DisksContainer = (props) => {
         style={{"zIndex": `${props.disksText.length - index}`}}
         onClick={(event) => handleClick(event, index)}
         className={index === props.selectedDisk ? "Disk active" : "Disk"}
+        ariaLabel={`Disk ${index + 1}`}
       />
     );
   });

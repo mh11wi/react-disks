@@ -32,7 +32,12 @@ const Disk = (props) => {
   });
   
   return (
-    <button className={props.className} style={props.style} onClick={props.onClick} tabIndex={1}>
+    <button 
+      className={props.className}
+      aria-label={props.ariaLabel}
+      style={props.style} 
+      onClick={props.onClick}
+    >
       <div className="ColumnsContainer">
         {columns}
       </div>
