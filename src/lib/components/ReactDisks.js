@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import DisksContainer from './DisksContainer';
 import '../index.css';
@@ -22,6 +22,12 @@ const RotateButton = styled.button`
 const ReactDisks = (props) => {
   const [selectedDisk, setSelectedDisk] = useState(-1);
   const [rotatedDisksText, setRotatedDisksText] = useState(JSON.parse(JSON.stringify(props.disksText || [])));
+  
+  useEffect(() => {
+    setSelectedDisk(-1);
+    setRotatedDisksText(JSON.parse(JSON.stringify(props.disksText || [])));
+    document.querySelectorAll('.ColumnsContainer').forEach(el => el.style.transform = '');
+  }, [props.disksText]);
   
   const rotateDisk = (direction) => {
     const element = document.getElementsByClassName('ColumnsContainer')[selectedDisk];

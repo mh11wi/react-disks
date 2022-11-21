@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { ReactDisks } from './lib';
 import './App.css';
 
 function App() {
-  const disksText = [
+  const [disksText, setDisksText] = useState([
     ['a', 'b', 'c', 'd'], 
     ['e', 'f', 'g', 'h'], 
     ['i', 'j', 'k', 'l'], 
@@ -10,7 +11,7 @@ function App() {
     ['q', 'r', 's', 't'], 
     ['u', 'v', 'w', 'x'], 
     ['y', 'z', '1', '2']
-  ];
+  ]);
   
   const theme = {
     main: "magenta",
