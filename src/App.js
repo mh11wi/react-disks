@@ -3,7 +3,7 @@ import { ReactDisks } from './lib';
 import './App.css';
 
 function App() {
-  const [disksText, setDisksText] = useState([
+  const [disksText] = useState([
     ['a', 'b', 'c', 'd'], 
     ['e', 'f', 'g', 'h'], 
     ['i', 'j', 'k', 'l'], 
@@ -12,19 +12,11 @@ function App() {
     ['u', 'v', 'w', 'x'], 
     ['y', 'z', '1', '2']
   ]);
-  
-  const theme = {
-    main: "magenta",
-    light: "plum",
-    dark: "darkmagenta"
-  }
-
   return (
     <div className="App">
       <h1 className="sr-only">react-disks</h1>
       <ReactDisks 
         disksText={disksText} 
-        // theme={theme}
       />
     </div>
   );
