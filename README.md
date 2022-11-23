@@ -2,7 +2,7 @@
 
 A shared react component for a stack of rotatable disks containing text.
 
-If an `m`&times;`n` array is passed to the component, `m` disks will render with `n` text items evenly spaced around each disk.
+If an `m`&times;`n` array of text items is passed to the component, `m` disks will render with `n` items evenly spaced around each disk.
 
 ## Installation
 
