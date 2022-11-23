@@ -81,6 +81,7 @@ const DisksContainer = (props) => {
         onClick={(event) => handleClick(event, index)}
         className={index === props.selectedDisk ? "Disk active" : "Disk"}
         ariaLabel={`Disk ${index + 1}`}
+        disabled={props.disabled}
       />
     );
   });

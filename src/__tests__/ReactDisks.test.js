@@ -63,3 +63,10 @@ test('a theme can be set', () => {
   fireEvent.click(disk);
   expect(disk).toHaveStyle("background-color: plum");
 });
+
+test('disks are disabled if disabled prop is passed', () => {
+  render(<ReactDisks disksText={disksText} disabled={true} />);
+  
+  const disk = screen.getByRole('button', { name: /disk 1/i });
+  expect(disk).toBeDisabled();
+});

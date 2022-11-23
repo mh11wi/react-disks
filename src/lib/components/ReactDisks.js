@@ -29,6 +29,10 @@ const ReactDisks = (props) => {
     document.querySelectorAll('.ColumnsContainer').forEach(el => el.style.transform = '');
   }, [props.disksText]);
   
+  useEffect(() => {
+    setSelectedDisk(-1);
+  }, [props.disabled]);
+  
   const rotateDisk = (direction) => {
     const element = document.getElementsByClassName('ColumnsContainer')[selectedDisk];
     const currentTransform = element.style.transform;
@@ -62,7 +66,8 @@ const ReactDisks = (props) => {
         <DisksContainer 
           disksText={props.disksText} 
           selectedDisk={selectedDisk} 
-          setSelectedDisk={setSelectedDisk} 
+          setSelectedDisk={setSelectedDisk}
+          disabled={props.disabled}
         />
         <RotateButton
           className="rotateClockwise"

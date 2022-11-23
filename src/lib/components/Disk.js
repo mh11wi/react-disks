@@ -14,6 +14,10 @@ const DiskButton = styled.button`
     &.active {
       background-color: ${props => props.theme.light};
     }
+    
+    &:disabled {
+      background-color: #f2f2f2;
+    }
 `;
  
 const Disk = (props) => {
@@ -53,6 +57,7 @@ const Disk = (props) => {
       aria-label={props.ariaLabel}
       style={props.style} 
       onClick={props.onClick}
+      disabled={props.disabled}
     >
       <div className="ColumnsContainer">
         {columns}

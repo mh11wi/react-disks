@@ -33,8 +33,9 @@ export default App;
 
 ## Props
 
-| **Prop**          	| **Type**  	| **Required** 	| **Description**                                                           |
-|-------------------- |------------ |--------------	|-------------------------------------------------------------------------- |
-| **disksText**       | 2D array   	| yes          	| Text to be displayed in each disk                                         |
-| **onRotate**        | function    | no          	| Function called after a disk is rotated (use to obtain new order of text) |
-| **theme**        	  | object    	| no          	| Component colouring (options: **main**, **light**, and **dark**)          |
+| **Prop**            | **Type**    | **Required**  | **Description**                                                           |
+|-------------------- |------------ |-------------- |-------------------------------------------------------------------------- |
+| **disksText**       | 2D array    | yes           | Text to be displayed in each disk                                         |
+| **onRotate**        | function    | no            | Function called after a disk is rotated (use to obtain new order of text) |
+| **theme**           | object      | no            | Component colouring (options: **main**, **light**, and **dark**)          |
+| **disabled**        | boolean     | no            | Whether the disks should be disabled                                      |
