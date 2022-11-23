@@ -23,6 +23,7 @@ function App() {
       disksText={[['a', 'b', 'c', 'd'], ['e', 'f', 'g', 'h'], ['i', 'j', 'k', 'l]]}
       onRotate={(rotatedDisksText) => console.log(rotatedDisksText)}
       theme={{main: "magenta", light: "plum", dark: "darkmagenta"}}
+      disabled={false}
     />
   );
 }
