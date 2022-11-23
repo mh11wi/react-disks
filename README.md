@@ -15,7 +15,7 @@ Clone this repository and in its directory, run:
 ## Example
 
 ```js
-import { ReactDisks } from './lib';
+import ReactDisks from './lib';
 
 function App() {
   return (

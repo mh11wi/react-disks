@@ -86,7 +86,7 @@ const DisksContainer = (props) => {
   });
 
   return (
-    <div className="DisksContainer">
+    <div className="DisksContainer" data-testid="disks-container">
       {disks}
     </div>
   );

@@ -64,16 +64,18 @@ const ReactDisks = (props) => {
           selectedDisk={selectedDisk} 
           setSelectedDisk={setSelectedDisk} 
         />
-        <RotateButton 
+        <RotateButton
           className="rotateClockwise"
+          data-testid="rotate-clockwise"
           aria-label="Rotate selected disk clockwise"
           visibility={selectedDisk > -1 ? 'visible' : 'hidden'} 
           onClick={() => rotateDisk(1)}
         >
           &#8635;
         </RotateButton>
-        <RotateButton 
+        <RotateButton
           className="rotateCounterClockwise"
+          data-testid="rotate-counterclockwise"
           aria-label="Rotate selected disk counterclockwise"
           visibility={selectedDisk > -1 ? 'visible' : 'hidden'}
           onClick={() => rotateDisk(-1)}

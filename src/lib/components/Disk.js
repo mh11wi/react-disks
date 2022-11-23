@@ -21,8 +21,9 @@ const Disk = (props) => {
   const columns = text.map((columnText, index) => {
     const svgProps = {
       "style": {
-        "transform": `rotate(-${index * 360 / props.text.length}deg)`
-      }
+        "transform": `rotate(-${index * 360 / text.length}deg)`
+      },
+      "data-testid": `column-${index}`
     };
     const textProps = {
       "style": {

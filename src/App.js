@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { ReactDisks } from './lib';
+import { React, useState } from 'react';
+import ReactDisks from './lib';
 import './App.css';
 
 function App() {
