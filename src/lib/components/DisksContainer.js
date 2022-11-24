@@ -72,6 +72,11 @@ const DisksContainer = (props) => {
   }
   
   const disks = props.disksText.map((text, index) => {
+    let ariaLabel = `Disk ${index + 1}`;
+    if (props.rotatedDisksText) {
+      ariaLabel += `: ${props.rotatedDisksText[index].join(' ')}`;
+    }
+    
     return (
       <Disk 
         key={index} 
@@ -80,7 +85,7 @@ const DisksContainer = (props) => {
         style={{"zIndex": `${props.disksText.length - index}`}}
         onClick={(event) => handleClick(event, index)}
         className={index === props.selectedDisk ? 'Disk active' : 'Disk'}
-        ariaLabel={`Disk ${index + 1}: ${props.rotatedDisksText[index].join(' ')}`}
+        ariaLabel={ariaLabel}
         disabled={props.disabled}
       />
     );
