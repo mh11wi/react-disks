@@ -14,30 +14,19 @@
   border: 0;
 }
 
+/* Outer Grid: DisksContainer and rotate button columns */
 .ReactDisks {
+  display: grid;
   grid-template: 1fr / 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
   height: inherit;
 }  
 
-.ReactDisks, .DisksContainer, .ColumnsContainer {
-  display: grid;
-  justify-items: center;
-  align-items: center;
-}
-
 .DisksContainer {
-  height: inherit;
-}
-
-svg, .ColumnsContainer {
-  grid-row-start: 1;
-  grid-column-start: 1;
-  pointer-events: none;
-}
-
-.Disk {
   grid-row-start: 1;
   grid-column-start: 2;
+  height: inherit;
 }
 
 .rotateClockwise {
@@ -52,4 +41,22 @@ svg, .ColumnsContainer {
   grid-column-start: 3;
   filter: drop-shadow(-5px 2px 3px #ccc);
   transform: rotate(-45deg);
+}
+
+/* Inner Grid: Disks and their contents stacked on top of each other */
+.DisksContainer, .ColumnsContainer {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.ColumnsContainer, svg {
+  grid-row-start: 1;
+  grid-column-start: 1;
+  pointer-events: none;
+}
+
+.Disk {
+  grid-row-start: 1;
+  grid-column-start: 1;
 }
