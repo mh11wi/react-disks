@@ -6,21 +6,21 @@ If an `m`&times;`n` array of text items is passed to the component, `m` disks wi
 
 ## Installation
 
-Clone this repository and in its directory, run:
+```shell
+npm install react-disks
+```
 
-- `npm install` to install the app and its dependencies.
-
-- `npm start` to run the app in the development mode. Open [localhost:3000](http://localhost:3000) to view it in your browser. 
+Please note that dependencies of this package require React **18.0.0** or later.
 
 ## Example
 
 ```js
-import ReactDisks from './lib';
+import ReactDisks from 'react-disks';
 
 function App() {
   return (
     <ReactDisks
-      disksText={[['a', 'b', 'c', 'd'], ['e', 'f', 'g', 'h'], ['i', 'j', 'k', 'l]]}
+      disksText={[['a', 'b', 'c', 'd'], ['e', 'f', 'g', 'h'], ['i', 'j', 'k', 'l']]}
       onRotate={(rotatedDisksText) => console.log(rotatedDisksText)}
       theme={{main: "magenta", light: "plum", dark: "darkmagenta"}}
       disabled={false}

@@ -1,8 +1,30 @@
 {
   "name": "react-disks",
   "author": "Madeleine Hill <mh11wi@outlook.com> (https://mh11wi.github.io)",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "A shared react component for a stack of rotatable disks containing text",
+  "keywords": [
+    "react",
+    "disks",
+    "rotate text"
+  ],
+  "private": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mh11wi/react-disks.git"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
+  },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "@testing-library/jest-dom": "^5.16.5",
@@ -11,12 +33,11 @@
     "react": "^18.2.0",
     "react-curved-text": "^1.0.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
     "styled-components": "^5.3.6"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject"
   },
@@ -40,6 +61,11 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.19.3",
-    "@babel/preset-react": "^7.18.6"
+    "@babel/preset-react": "^7.18.6",
+    "@svgr/webpack": "^6.5.1",
+    "react-scripts": "5.0.1"
+  },
+  "overrides": {
+    "@svgr/webpack": "$@svgr/webpack"
   }
 }
