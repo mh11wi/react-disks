@@ -24,15 +24,16 @@ const Disk = (props) => {
   const text = Array.isArray(props.text) ? props.text : [' '];
   const columns = text.map((columnText, index) => {
     const svgProps = {
-      "style": {
-        "transform": `rotate(-${index * 360 / text.length}deg)`
+      style: {
+        transform: `rotate(-${index * 360 / text.length}deg)`
       },
-      "data-testid": `column-${index}`
+      "data-testid": `column-${index}`,
+      "aria-hidden": true
     };
     const textProps = {
-      "style": {
-        "fontSize": "1rem", 
-        "fontFamily": "OpenDyslexicRegular"
+      style: {
+        fontSize: "1rem", 
+        fontFamily: "OpenDyslexicRegular"
       }
     };
     return (

@@ -3,6 +3,10 @@ import styled, { ThemeProvider } from 'styled-components';
 import DisksContainer from './DisksContainer';
 import '../index.css';
 
+const ANNOUNCEMENT = {
+  NONE: "No disks selected",
+}
+
 const RotateButton = styled.button`
   color: ${props => props.theme.dark};
   background-color: transparent;
@@ -22,6 +26,7 @@ const RotateButton = styled.button`
 const ReactDisks = (props) => {
   const [selectedDisk, setSelectedDisk] = useState(-1);
   const [rotatedDisksText, setRotatedDisksText] = useState(JSON.parse(JSON.stringify(props.disksText || [])));
+  const [announcement, setAnnouncement] = useState(ANNOUNCEMENT.NONE);
   
   useEffect(() => {
     setSelectedDisk(-1);
@@ -33,6 +38,10 @@ const ReactDisks = (props) => {
     setSelectedDisk(-1);
   }, [props.disabled]);
   
+  useEffect(() => {
+    setAnnouncement(selectedDisk === -1 ? ANNOUNCEMENT.NONE : `Disk ${selectedDisk + 1} selected`);
+  }, [selectedDisk]);
+  
   const rotateDisk = (direction) => {
     const element = document.getElementsByClassName('ColumnsContainer')[selectedDisk];
     const currentTransform = element.style.transform;
@@ -40,8 +49,8 @@ const ReactDisks = (props) => {
     const angleToAdd = direction * 360 / props.disksText[selectedDisk].length;
 
     const styles = {
-      "transition": "transform 0.5s linear",
-      "transform": `rotate(${Number(currentAngle) + Number(angleToAdd)}deg)`
+      transition: "transform 0.5s linear",
+      transform: `rotate(${Number(currentAngle) + Number(angleToAdd)}deg)`
     };
     Object.assign(element.style, styles);
     setTimeout(() => element.style.transition = "none", 500);
@@ -55,6 +64,8 @@ const ReactDisks = (props) => {
       setRotatedDisksText(clone);
     }
     
+    setAnnouncement(`Disk ${selectedDisk + 1} rotated: ${clone[selectedDisk].join(' ')}`);
+    
     if (props.onRotate) {
       props.onRotate(clone);
     }
@@ -64,11 +75,15 @@ const ReactDisks = (props) => {
     <div className="ReactDisks">
       <ThemeProvider theme={props.theme}>
         <DisksContainer 
-          disksText={props.disksText} 
+          disksText={props.disksText}
+          rotatedDisksText={rotatedDisksText}
           selectedDisk={selectedDisk} 
           setSelectedDisk={setSelectedDisk}
           disabled={props.disabled}
         />
+        <div aria-live="polite" aria-atomic="true" className="sr-only">
+          {announcement}
+        </div>
         <RotateButton
           className="rotateClockwise"
           data-testid="rotate-clockwise"

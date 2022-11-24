@@ -79,8 +79,8 @@ const DisksContainer = (props) => {
         radius={getRadius(index)}
         style={{"zIndex": `${props.disksText.length - index}`}}
         onClick={(event) => handleClick(event, index)}
-        className={index === props.selectedDisk ? "Disk active" : "Disk"}
-        ariaLabel={`Disk ${index + 1}`}
+        className={index === props.selectedDisk ? 'Disk active' : 'Disk'}
+        ariaLabel={`Disk ${index + 1}: ${props.rotatedDisksText[index].join(' ')}`}
         disabled={props.disabled}
       />
     );
