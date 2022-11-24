@@ -18,6 +18,12 @@ const DiskButton = styled.button`
     &:disabled {
       background-color: #f2f2f2;
     }
+    
+    &:focus-visible {
+      outline-color: transparent;
+      outline-style: solid;
+      border:  ${props => `3px solid ${props.theme.dark}`};
+    }
 `;
  
 const Disk = (props) => {

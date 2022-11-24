@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import DisksContainer from './DisksContainer';
 import '../index.css';
@@ -20,6 +20,12 @@ const RotateButton = styled.button`
   
     &:hover, &:focus {
       color: ${props => props.theme.main};
+    }
+    
+    &:focus-visible {
+      outline-color: transparent;
+      outline-style: solid;
+      border:  ${props => `3px solid ${props.theme.dark}`};
     }
 `;
 
@@ -65,6 +71,7 @@ const ReactDisks = (props) => {
     }
     
     setAnnouncement(`Disk ${selectedDisk + 1} rotated: ${clone[selectedDisk].join(' ')}`);
+    setTimeout(() => setAnnouncement(`Disk ${selectedDisk + 1} still selected`), 2000);
     
     if (props.onRotate) {
       props.onRotate(clone);
