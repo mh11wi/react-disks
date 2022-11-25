@@ -20,14 +20,12 @@
   grid-template: 1fr / 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
-  height: inherit;
-  overflow: hidden;
+  height: 100%;
 }  
 
 .DisksContainer {
   grid-row-start: 1;
   grid-column-start: 2;
-  height: inherit;
 }
 
 .rotateClockwise {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import DisksContainer from './DisksContainer';
 import '../index.css';
@@ -29,10 +29,31 @@ const RotateButton = styled.button`
     }
 `;
 
+function debounce(func) {
+  let timer;
+  return function(event) {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(func, 100, event);
+  };
+}
+
 const ReactDisks = (props) => {
+  const ref = useRef(null);
+  const [dimensions, setDimensions] = useState({width: 0, height: 0});
   const [selectedDisk, setSelectedDisk] = useState(-1);
   const [rotatedDisksText, setRotatedDisksText] = useState(JSON.parse(JSON.stringify(props.disksText || [])));
   const [announcement, setAnnouncement] = useState(ANNOUNCEMENT.NONE);
+  
+  useEffect(() => {
+    setDimensions({width: ref.current.clientWidth, height: ref.current.clientHeight});
+    const debouncedHandleResize = debounce(function handleResize() {
+      setDimensions({width: ref.current.clientWidth, height: ref.current.clientHeight});
+    });
+    window.addEventListener('resize', debouncedHandleResize);
+    return _ => window.removeEventListener('resize', debouncedHandleResize);
+  }, []);
   
   useEffect(() => {
     setSelectedDisk(-1);
@@ -79,11 +100,13 @@ const ReactDisks = (props) => {
   }
   
   return (
-    <div className="ReactDisks">
+    <div className="ReactDisks" ref={ref}>
       <ThemeProvider theme={props.theme}>
         <DisksContainer 
           disksText={props.disksText}
           rotatedDisksText={rotatedDisksText}
+          width={dimensions.width}
+          height={dimensions.height}
           selectedDisk={selectedDisk} 
           setSelectedDisk={setSelectedDisk}
           disabled={props.disabled}
