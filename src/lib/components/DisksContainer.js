@@ -74,7 +74,7 @@ const DisksContainer = (props) => {
   
   const disks = props.disksText.map((text, index) => {
     let ariaLabel = `Disk ${index + 1}`;
-    if (props.rotatedDisksText) {
+    if (props.rotatedDisksText && props.rotatedDisksText.length > 0) {
       ariaLabel += `: ${props.rotatedDisksText[index].join(' ')}`;
     }
     
