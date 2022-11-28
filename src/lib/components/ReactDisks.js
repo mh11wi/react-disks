@@ -5,6 +5,7 @@ import '../index.css';
 
 const ANNOUNCEMENT = {
   NONE: "No disks selected",
+  DISABLED: "Disks disabled"
 }
 
 const RotateButton = styled.button`
@@ -62,12 +63,13 @@ const ReactDisks = (props) => {
   }, [props.disksText]);
   
   useEffect(() => {
-    setSelectedDisk(-1);
-  }, [props.disabled]);
-  
-  useEffect(() => {
-    setAnnouncement(selectedDisk === -1 ? ANNOUNCEMENT.NONE : `Disk ${selectedDisk + 1} selected`);
-  }, [selectedDisk]);
+    if (props.disabled) {
+      setAnnouncement(ANNOUNCEMENT.DISABLED);
+      setSelectedDisk(-1);
+    } else {
+      setAnnouncement(selectedDisk === -1 ? ANNOUNCEMENT.NONE : `Disk ${selectedDisk + 1} selected`);
+    }
+  }, [props.disabled, selectedDisk]);
   
   const rotateDisk = (direction) => {
     const element = document.getElementsByClassName('ColumnsContainer')[selectedDisk];
@@ -92,7 +94,6 @@ const ReactDisks = (props) => {
     }
     
     setAnnouncement(`Disk ${selectedDisk + 1} rotated: ${clone[selectedDisk].join(' ')}`);
-    setTimeout(() => setAnnouncement(`Disk ${selectedDisk + 1} still selected`), 2000);
     
     if (props.onRotate) {
       props.onRotate(clone);
