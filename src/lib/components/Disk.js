@@ -38,7 +38,7 @@ const Disk = (props) => {
     };
     const textProps = {
       style: {
-        fontSize: "1rem", 
+        fontSize: `${props.fontSize}px`, 
         fontFamily: "OpenDyslexicRegular"
       }
     };
@@ -49,8 +49,8 @@ const Disk = (props) => {
         height={2 * props.radius}
         cx={props.radius}
         cy={props.radius}
-        rx={props.radius - 8}
-        ry={props.radius - 8}
+        rx={props.radius - 0.5 * props.fontSize}
+        ry={props.radius - 0.5 * props.fontSize}
         text={columnText}
         textProps={textProps}
         svgProps={svgProps}

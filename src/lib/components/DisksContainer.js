@@ -16,8 +16,13 @@ function isPointInCircle(x, y, cx, cy, radius) {
 const DisksContainer = (props) => {
   const getRadius = (index) => {
     const maxRadius = Math.min(0.75 * (props.width || 100), 0.95 * (props.height || 100)) / 2;
-    const minRadius = maxRadius / props.disksText.length / 2;
+    const minRadius = 0.75 * maxRadius / props.disksText.length;
     return (maxRadius - minRadius) * (index + 1) / props.disksText.length + minRadius;
+  }
+  
+  const getFontSize = () => {    
+    const fs = props.disksText.length === 1 ? getRadius(0) / 2 : getRadius(1) - getRadius(0);
+    return fs / 2;
   }
 
   const getTrueIndex = (event, index) => {
@@ -83,6 +88,7 @@ const DisksContainer = (props) => {
         key={index} 
         text={text} 
         radius={getRadius(index)}
+        fontSize={getFontSize()}
         style={{"zIndex": `${props.disksText.length - index}`}}
         onClick={(event) => handleClick(event, index)}
         className={index === props.selectedDisk ? 'Disk active' : 'Disk'}
