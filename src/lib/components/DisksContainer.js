@@ -15,14 +15,14 @@ function isPointInCircle(x, y, cx, cy, radius) {
 
 const DisksContainer = (props) => {
   const getRadius = (index) => {
-    const maxRadius = Math.min(0.8 * (props.width || 100), 0.95 * (props.height || 100)) / 2;
+    const maxRadius = Math.min(0.775 * (props.width || 100), 0.95 * (props.height || 100)) / 2;
     const minRadius = 0.6 * maxRadius / props.disksText.length;
     return (maxRadius - minRadius) * (index + 1) / props.disksText.length + minRadius;
   }
   
   const getFontSize = () => {    
     const fs = props.disksText.length === 1 ? getRadius(0) / 2 : getRadius(1) - getRadius(0);
-    return fs / 2;
+    return Math.min(fs / 2, 26);
   }
 
   const getTrueIndex = (event, index) => {
