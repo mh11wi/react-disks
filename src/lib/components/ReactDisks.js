@@ -12,8 +12,8 @@ const RotateButton = styled.button`
   color: ${props => props.theme.dark};
   background-color: transparent;
   border: 0;
-  padding: 0 0.5rem;
-  font-size: 2.5rem;
+  padding: 0 0.7rem;
+  font-size: 3rem;
   font-weight: bold;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
