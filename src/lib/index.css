@@ -33,6 +33,7 @@
   grid-column-start: 1;
   filter: drop-shadow(5px 2px 3px #ccc);
   transform: rotate(45deg);
+  margin-right: -0.5rem;
 }
 
 .rotateCounterClockwise {
@@ -40,6 +41,7 @@
   grid-column-start: 3;
   filter: drop-shadow(-5px 2px 3px #ccc);
   transform: rotate(-45deg);
+  margin-left: -0.5rem;
 }
 
 /* Inner Grid: Disks and their contents stacked on top of each other */
