@@ -15,7 +15,16 @@ function isPointInCircle(x, y, cx, cy, radius) {
 
 const DisksContainer = (props) => {
   const getRadius = (index) => {
-    const maxRadius = 0.475 * Math.min(props.width || 100, props.height || 100);
+    const width = props.width || 100;
+    const height = props.height || 100;
+    
+    let maxRadius = Math.min(width, height);
+    if (width > height + 180 || height > width + 180) {
+      maxRadius *= 0.475;
+    } else {
+      maxRadius *= 0.375;
+    }
+    
     const minRadius = 0.6 * maxRadius / props.disksText.length;
     return (maxRadius - minRadius) * (index + 1) / props.disksText.length + minRadius;
   }

@@ -8,6 +8,31 @@ const ANNOUNCEMENT = {
   DISABLED: "Disks disabled"
 }
 
+const ReactDisksStyled = styled.div`
+  ${props => props.width <= props.height &&
+    `
+      grid-template: 1fr 1fr 1fr / 1fr;
+
+      .DisksContainer {
+        grid-row-start: 2;
+        grid-column-start: 1;
+      }
+
+      .rotateClockwise {
+        grid-row-start: 1;
+        grid-column-start: 1;
+        transform: rotate(135deg);
+      }
+
+      .rotateCounterClockwise {
+        grid-row-start: 3;
+        grid-column-start: 1;
+        transform: rotate(45deg);
+      }
+    `
+  }
+`;
+
 const RotateButton = styled.button`
   color: ${props => props.theme.dark};
   background-color: transparent;
@@ -36,7 +61,7 @@ function debounce(func) {
     if (timer) {
       clearTimeout(timer);
     }
-    timer = setTimeout(func, 100, event);
+    timer = setTimeout(func, 600, event);
   };
 }
 
@@ -101,7 +126,12 @@ const ReactDisks = (props) => {
   }
   
   return (
-    <div className="ReactDisks" ref={ref}>
+    <ReactDisksStyled 
+      className="ReactDisks" 
+      ref={ref}
+      width={dimensions.width}
+      height={dimensions.height}
+    >
       <ThemeProvider theme={props.theme}>
         <DisksContainer 
           disksText={props.disksText}
@@ -134,7 +164,7 @@ const ReactDisks = (props) => {
           &#8634;
         </RotateButton>
       </ThemeProvider>
-    </div>
+    </ReactDisksStyled>
   );
 };
 

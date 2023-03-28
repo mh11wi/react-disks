@@ -42,29 +42,6 @@
   transform: rotate(-45deg);
 }
 
-@media (orientation: portrait) {
-  .ReactDisks {
-    grid-template: 1fr 1fr 1fr / 1fr;
-  }  
-
-  .DisksContainer {
-    grid-row-start: 2;
-    grid-column-start: 1;
-  }
-
-  .rotateClockwise {
-    grid-row-start: 1;
-    grid-column-start: 1;
-    transform: rotate(135deg);
-  }
-
-  .rotateCounterClockwise {
-    grid-row-start: 3;
-    grid-column-start: 1;
-    transform: rotate(45deg);
-  }
-}
-
 /* Inner Grid: Disks and their contents stacked on top of each other */
 .DisksContainer, .ColumnsContainer {
   display: grid;

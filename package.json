@@ -1,7 +1,7 @@
 {
   "name": "react-disks",
   "author": "Madeleine Hill <mh11wi@outlook.com> (https://mh11wi.github.io)",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "A shared react component for a stack of rotatable disks containing text",
   "keywords": [
     "react",
