@@ -61,7 +61,7 @@ function debounce(func) {
     if (timer) {
       clearTimeout(timer);
     }
-    timer = setTimeout(func, 600, event);
+    timer = setTimeout(func, 100, event);
   };
 }
 
