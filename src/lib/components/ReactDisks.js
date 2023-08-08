@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
+import { useSwipeable } from 'react-swipeable';
 import styled, { ThemeProvider } from 'styled-components';
 import DisksContainer from './DisksContainer';
 import '../index.css';
@@ -72,6 +73,32 @@ const ReactDisks = (props) => {
   const [rotatedDisksText, setRotatedDisksText] = useState(JSON.parse(JSON.stringify(props.disksText || [])));
   const [announcement, setAnnouncement] = useState(ANNOUNCEMENT.NONE);
   
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: (e) => {
+      if (props.swipeMode) {
+        const containerRect = document.querySelector('.DisksContainer').getBoundingClientRect();
+        if (e.initial[1] < (containerRect.top + containerRect.bottom) / 2) {
+          rotateDisk(-1);
+        } else {
+          rotateDisk(1);
+        }
+      }
+    },
+    onSwipedRight: (e) => {
+      if (props.swipeMode) {
+        const containerRect = document.querySelector('.DisksContainer').getBoundingClientRect();
+        if (e.initial[1] < (containerRect.top + containerRect.bottom) / 2) {
+          rotateDisk(1);
+        } else {
+          rotateDisk(-1);
+        }
+      }
+    },
+    swipeDuration: 500,
+    preventScrollOnSwipe: true,
+    trackMouse: true
+  });
+  
   useEffect(() => {
     setDimensions({width: ref.current.clientWidth, height: ref.current.clientHeight});
     const debouncedHandleResize = debounce(function handleResize() {
@@ -80,6 +107,11 @@ const ReactDisks = (props) => {
     window.addEventListener('resize', debouncedHandleResize);
     return _ => window.removeEventListener('resize', debouncedHandleResize);
   }, []);
+  
+  useEffect(() => {
+    swipeHandlers.ref(document);
+    return _ => swipeHandlers.ref({});
+  }, [swipeHandlers]);
   
   useEffect(() => {
     setSelectedDisk(-1);
@@ -97,6 +129,10 @@ const ReactDisks = (props) => {
   }, [props.disabled, selectedDisk]);
   
   const rotateDisk = (direction) => {
+    if (selectedDisk < 0) {
+      return;
+    }
+    
     const element = document.getElementsByClassName('ColumnsContainer')[selectedDisk];
     const currentTransform = element.style.transform;
     const currentAngle = currentTransform === '' ? 0 : currentTransform.match(/rotate\((.*?)deg\)/)[1];
@@ -145,24 +181,29 @@ const ReactDisks = (props) => {
         <div aria-live="polite" aria-atomic="true" className="sr-only">
           {announcement}
         </div>
-        <RotateButton
-          className="rotateClockwise"
-          data-testid="rotate-clockwise"
-          aria-label="Rotate selected disk clockwise"
-          visibility={selectedDisk > -1 ? 'visible' : 'hidden'} 
-          onClick={() => rotateDisk(1)}
-        >
-          &#8635;
-        </RotateButton>
-        <RotateButton
-          className="rotateCounterClockwise"
-          data-testid="rotate-counterclockwise"
-          aria-label="Rotate selected disk counterclockwise"
-          visibility={selectedDisk > -1 ? 'visible' : 'hidden'}
-          onClick={() => rotateDisk(-1)}
-        >
-          &#8634;
-        </RotateButton>
+        <div className="sr-only" {...swipeHandlers}></div>
+        {!props.swipeMode && 
+          <Fragment>
+            <RotateButton
+              className="rotateClockwise"
+              data-testid="rotate-clockwise"
+              aria-label="Rotate selected disk clockwise"
+              visibility={selectedDisk > -1 ? 'visible' : 'hidden'} 
+              onClick={() => rotateDisk(1)}
+            >
+              &#8635;
+            </RotateButton>
+            <RotateButton
+              className="rotateCounterClockwise"
+              data-testid="rotate-counterclockwise"
+              aria-label="Rotate selected disk counterclockwise"
+              visibility={selectedDisk > -1 ? 'visible' : 'hidden'}
+              onClick={() => rotateDisk(-1)}
+            >
+              &#8634;
+            </RotateButton>
+          </Fragment>
+        }
       </ThemeProvider>
     </ReactDisksStyled>
   );

@@ -24,6 +24,7 @@ function App() {
       onRotate={(rotatedDisksText) => console.log(rotatedDisksText)}
       theme={{main: "magenta", light: "plum", dark: "darkmagenta"}}
       disabled={false}
+      swipeMode={false}
     />
   );
 }
@@ -40,3 +41,4 @@ export default App;
 | **onRotate**        | function    | no            | Function called after a disk is rotated (use to obtain new order of text) |
 | **theme**           | object      | no            | Component colouring (options: **main**, **light**, and **dark**)          |
 | **disabled**        | boolean     | no            | Whether the disks should be disabled                                      |
+| **swipeMode**       | boolean     | no            | Whether the disks are rotated via swipe gestures                          |
