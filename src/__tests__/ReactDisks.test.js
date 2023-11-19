@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import ReactDisks from '../lib';
+import { vi } from 'vitest' ;
 
 const disksText = [['a', 'b', 'c', 'd']];
 
@@ -14,7 +15,7 @@ test('rotate buttons are not visible when a disk is not selected', () => {
 });
 
 test('selected disk can be rotated clockwise', () => {
-  const onRotate = jest.fn();
+  const onRotate = vi.fn();
   render(<ReactDisks disksText={disksText} onRotate={onRotate} />);
   
   const disk = screen.getByRole('button', { name: /disk 1/i });
@@ -33,7 +34,7 @@ test('selected disk can be rotated clockwise', () => {
 });
 
 test('selected disk can be rotated counterclockwise', () => {
-  const onRotate = jest.fn();
+  const onRotate = vi.fn();
   render(<ReactDisks disksText={disksText} onRotate={onRotate} />);
   
   const disk = screen.getByRole('button', { name: /disk 1/i });
@@ -61,7 +62,7 @@ test('a theme can be set', () => {
   
   const disk = screen.getByRole('button', { name: /disk 1/i });
   fireEvent.click(disk);
-  expect(disk).toHaveStyle("background-color: plum");
+  expect(disk).toHaveStyle("background-color: rgb(221, 160, 221)");
 });
 
 test('disks are disabled if disabled prop is passed', () => {
