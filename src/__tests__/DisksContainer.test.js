@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '../test-utils';
 import DisksContainer from '../lib/components/DisksContainer';
 
 test('if disksText is undefined, DisksContainer does not render', () => {

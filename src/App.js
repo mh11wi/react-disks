@@ -2,6 +2,9 @@ import ReactDisks from './lib';
 import './App.css';
 
 function App() {
+  const darkMode = false;
+  document.querySelector('body').style.backgroundColor = darkMode ? '#121212' : 'white';
+  
   const disksText = [
     ['a', 'b', 'c', 'd'], 
     ['e', 'f', 'g', 'h'], 
@@ -16,6 +19,7 @@ function App() {
       <h1 className="sr-only">react-disks</h1>
       <ReactDisks 
         disksText={disksText}
+        darkMode={darkMode}
       />
     </div>
   );

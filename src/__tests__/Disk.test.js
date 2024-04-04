@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen } from '../test-utils';
 import Disk from '../lib/components/Disk';
 
 test('if text is undefined, Disk will render blank', () => {

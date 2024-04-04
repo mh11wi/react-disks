@@ -1,28 +1,27 @@
 import React from 'react';
 import ReactCurvedText from 'react-curved-text';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 
 const DiskButton = styled.button`
-  color: black;
-  background-color: white;
-  border: 1px solid #666;
-  box-shadow: 0 0 1.5rem #ccc;
+  background-color: ${props => props.theme.background};
+  border: ${props => `1px solid ${props.theme.border}`};
+  box-shadow: ${props => `0 0 1.5rem ${props.theme.shadow}`};
   border-radius: 50%;
   padding: 0;
   -webkit-tap-highlight-color: transparent;
 
     &.active {
-      background-color: ${props => props.theme.light};
+      background-color: ${props => props.theme.selected};
     }
     
     &:disabled {
-      background-color: #f2f2f2;
+      background-color: ${props => props.theme.disabled};
     }
     
     &:focus-visible {
       outline-color: transparent;
       outline-style: solid;
-      border:  ${props => `3px solid ${props.theme.dark}`};
+      border: ${props => `3px solid ${props.theme.outline}`};
     }
 `;
  
@@ -31,7 +30,8 @@ const Disk = (props) => {
   const columns = text.map((columnText, index) => {
     const svgProps = {
       style: {
-        transform: `rotate(-${index * 360 / text.length}deg)`
+        transform: `rotate(-${index * 360 / text.length}deg)`,
+        fill: `${props.theme.text}`
       },
       "data-testid": `column-${index}`,
       "aria-hidden": true
@@ -73,4 +73,4 @@ const Disk = (props) => {
   );
 };
 
-export default Disk;
+export default withTheme(Disk);

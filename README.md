@@ -25,6 +25,8 @@ function App() {
       theme={{main: "magenta", light: "plum", dark: "darkmagenta"}}
       disabled={false}
       swipeMode={false}
+      swipeContainer={".someContainer"}
+      darkMode={false}
     />
   );
 }
@@ -42,3 +44,5 @@ export default App;
 | **theme**           | object      | no            | Component colouring (options: **main**, **light**, and **dark**)          |
 | **disabled**        | boolean     | no            | Whether the disks should be disabled                                      |
 | **swipeMode**       | boolean     | no            | Whether the disks are rotated via swipe gestures                          |
+| **swipeContainer**  | string      | no            | Selector for a container to restrict swipe gesture detection              |
+| **darkMode**        | boolean     | no            | Whether the component theming should be dark or light                     |
