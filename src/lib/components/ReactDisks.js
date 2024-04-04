@@ -258,8 +258,8 @@ const ReactDisks = (props) => {
 
 ReactDisks.defaultProps = {
   theme: {
+    light: "#90caf9",
     main: "#1e88e5",
-    light: "#64b5f6",
     dark: "#0d47a1"
   },
   swipeContainer: ".ReactDisks"

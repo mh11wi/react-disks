@@ -3,8 +3,8 @@ import { render } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 
 const defaultTheme = {
+  light: "#90caf9",
   main: "#1e88e5",
-  light: "#64b5f6",
   dark: "#0d47a1"
 }
 
