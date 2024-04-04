@@ -10,6 +10,20 @@ const ANNOUNCEMENT = {
 }
 
 const ReactDisksStyled = styled.div`
+  .rotateClockwise {
+    grid-row-start: 1;
+    grid-column-start: 1;
+    filter: ${props => `drop-shadow(5px 2px 3px ${props.theme.filter})`};
+    transform: rotate(45deg);
+  }
+
+  .rotateCounterClockwise {
+    grid-row-start: 1;
+    grid-column-start: 3;
+    filter: ${props => `drop-shadow(-5px 2px 3px ${props.theme.filter})`};
+    transform: rotate(-45deg);
+  }
+
   ${props => props.width <= props.height &&
     `
       grid-template: 1fr 1fr 1fr / 1fr;
@@ -35,7 +49,7 @@ const ReactDisksStyled = styled.div`
 `;
 
 const RotateButton = styled.button`
-  color: ${props => props.theme.dark};
+  color: ${props => props.theme.button};
   background-color: transparent;
   border: 0;
   padding: 0 0.7rem;
@@ -46,13 +60,13 @@ const RotateButton = styled.button`
   visibility: ${props => props.visibility};
   
     &:hover, &:focus {
-      color: ${props => props.theme.main};
+      color: ${props => props.theme.highlight};
     }
     
     &:focus-visible {
       outline-color: transparent;
       outline-style: solid;
-      border:  ${props => `3px solid ${props.theme.dark}`};
+      border: ${props => `3px solid ${props.theme.outline}`};
     }
 `;
 
@@ -73,9 +87,22 @@ const ReactDisks = (props) => {
   const [rotatedDisksText, setRotatedDisksText] = useState(JSON.parse(JSON.stringify(props.disksText || [])));
   const [announcement, setAnnouncement] = useState(ANNOUNCEMENT.NONE);
   
+  const theme = {
+    background: props.darkMode ? '#464646' : 'white',
+    text: props.darkMode ? 'white' : 'black',
+    border: props.darkMode ? 'black' : '#666',
+    shadow: props.darkMode ? (props.disabled ? '#333' : 'black') : '#ccc',
+    selected: props.darkMode ? props.theme.main : props.theme.light,
+    disabled: props.darkMode ? '#666' : '#f2f2f2',
+    outline: props.theme.dark,
+    button: props.darkMode ? props.theme.main : props.theme.dark,
+    highlight: props.darkMode ? props.theme.light : props.theme.main,
+    filter: props.darkMode ? '#464646' : '#ccc'
+  }
+  
   const swipeHandlers = useSwipeable({
     onSwipedLeft: (e) => {
-      if (props.swipeMode) {
+      if (props.swipeMode && e.event.target.closest(props.swipeContainer)) {
         const containerRect = document.querySelector('.DisksContainer').getBoundingClientRect();
         if (e.initial[1] < (containerRect.top + containerRect.bottom) / 2) {
           rotateDisk(-1);
@@ -85,12 +112,32 @@ const ReactDisks = (props) => {
       }
     },
     onSwipedRight: (e) => {
-      if (props.swipeMode) {
+      if (props.swipeMode && e.event.target.closest(props.swipeContainer)) {
         const containerRect = document.querySelector('.DisksContainer').getBoundingClientRect();
         if (e.initial[1] < (containerRect.top + containerRect.bottom) / 2) {
           rotateDisk(1);
         } else {
           rotateDisk(-1);
+        }
+      }
+    },
+    onSwipedUp: (e) => {
+      if (props.swipeMode && e.event.target.closest(props.swipeContainer)) {
+        const containerRect = document.querySelector('.DisksContainer').getBoundingClientRect();
+        if (e.initial[0] < (containerRect.left + containerRect.right) / 2) {
+          rotateDisk(1);
+        } else {
+          rotateDisk(-1);
+        }
+      }
+    },
+    onSwipedDown: (e) => {
+      if (props.swipeMode && e.event.target.closest(props.swipeContainer)) {
+        const containerRect = document.querySelector('.DisksContainer').getBoundingClientRect();
+        if (e.initial[0] < (containerRect.left + containerRect.right) / 2) {
+          rotateDisk(-1);
+        } else {
+          rotateDisk(1);
         }
       }
     },
@@ -162,13 +209,13 @@ const ReactDisks = (props) => {
   }
   
   return (
-    <ReactDisksStyled 
-      className="ReactDisks" 
-      ref={ref}
-      width={dimensions.width}
-      height={dimensions.height}
-    >
-      <ThemeProvider theme={props.theme}>
+    <ThemeProvider theme={theme}>
+      <ReactDisksStyled 
+        className="ReactDisks" 
+        ref={ref}
+        width={dimensions.width}
+        height={dimensions.height}
+      >
         <DisksContainer 
           disksText={props.disksText}
           rotatedDisksText={rotatedDisksText}
@@ -204,17 +251,18 @@ const ReactDisks = (props) => {
             </RotateButton>
           </Fragment>
         }
-      </ThemeProvider>
-    </ReactDisksStyled>
+      </ReactDisksStyled>
+    </ThemeProvider>
   );
 };
 
 ReactDisks.defaultProps = {
   theme: {
-    main: "cyan",
-    light: "lightcyan",
-    dark: "darkcyan",
-  }
+    main: "#1e88e5",
+    light: "#64b5f6",
+    dark: "#0d47a1"
+  },
+  swipeContainer: ".ReactDisks"
 }
 
 export default ReactDisks;
