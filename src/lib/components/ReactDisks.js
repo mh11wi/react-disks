@@ -101,6 +101,11 @@ const ReactDisks = (props) => {
   }
   
   const swipeHandlers = useSwipeable({
+    onSwiping: (e) => {
+      if (e.event.target.closest(props.swipeContainer)) {
+        e.event.preventDefault();
+      }
+    },
     onSwipedLeft: (e) => {
       if (props.swipeMode && e.event.target.closest(props.swipeContainer)) {
         const containerRect = document.querySelector('.DisksContainer').getBoundingClientRect();
@@ -142,8 +147,7 @@ const ReactDisks = (props) => {
       }
     },
     swipeDuration: 500,
-    preventScrollOnSwipe: true,
-    trackMouse: true
+    touchEventOptions: { passive: false }
   });
   
   useEffect(() => {
