@@ -87,27 +87,32 @@ const ReactDisks = (props) => {
   const [rotatedDisksText, setRotatedDisksText] = useState(JSON.parse(JSON.stringify(props.disksText || [])));
   const [announcement, setAnnouncement] = useState(ANNOUNCEMENT.NONE);
   
+  const swipeContainer = props.swipeContainer || '.ReactDisks';
+  const lightColour = props.theme?.light || '#90caf9';
+  const mainColour = props.theme?.main || '#1e88e5';
+  const darkColour = props.theme?.dark || '#0d47a1';
+  
   const theme = {
     background: props.darkMode ? '#464646' : 'white',
     text: props.darkMode ? 'white' : 'black',
     border: props.darkMode ? 'black' : '#666',
     shadow: props.darkMode ? (props.disabled ? '#333' : 'black') : '#ccc',
-    selected: props.darkMode ? props.theme.main : props.theme.light,
+    selected: props.darkMode ? mainColour : lightColour,
     disabled: props.darkMode ? '#666' : '#f2f2f2',
-    outline: props.theme.dark,
-    button: props.darkMode ? props.theme.main : props.theme.dark,
-    highlight: props.darkMode ? props.theme.light : props.theme.main,
+    outline: darkColour,
+    button: props.darkMode ? mainColour : darkColour,
+    highlight: props.darkMode ? lightColour : mainColour,
     filter: props.darkMode ? '#464646' : '#ccc'
   }
   
   const swipeHandlers = useSwipeable({
     onSwiping: (e) => {
-      if (e.event.target.closest(props.swipeContainer)) {
+      if (e.event.target.closest(swipeContainer)) {
         e.event.preventDefault();
       }
     },
     onSwipedLeft: (e) => {
-      if (props.swipeMode && e.event.target.closest(props.swipeContainer)) {
+      if (props.swipeMode && e.event.target.closest(swipeContainer)) {
         const containerRect = document.querySelector('.DisksContainer').getBoundingClientRect();
         if (e.initial[1] < (containerRect.top + containerRect.bottom) / 2) {
           rotateDisk(-1);
@@ -117,7 +122,7 @@ const ReactDisks = (props) => {
       }
     },
     onSwipedRight: (e) => {
-      if (props.swipeMode && e.event.target.closest(props.swipeContainer)) {
+      if (props.swipeMode && e.event.target.closest(swipeContainer)) {
         const containerRect = document.querySelector('.DisksContainer').getBoundingClientRect();
         if (e.initial[1] < (containerRect.top + containerRect.bottom) / 2) {
           rotateDisk(1);
@@ -127,7 +132,7 @@ const ReactDisks = (props) => {
       }
     },
     onSwipedUp: (e) => {
-      if (props.swipeMode && e.event.target.closest(props.swipeContainer)) {
+      if (props.swipeMode && e.event.target.closest(swipeContainer)) {
         const containerRect = document.querySelector('.DisksContainer').getBoundingClientRect();
         if (e.initial[0] < (containerRect.left + containerRect.right) / 2) {
           rotateDisk(1);
@@ -137,7 +142,7 @@ const ReactDisks = (props) => {
       }
     },
     onSwipedDown: (e) => {
-      if (props.swipeMode && e.event.target.closest(props.swipeContainer)) {
+      if (props.swipeMode && e.event.target.closest(swipeContainer)) {
         const containerRect = document.querySelector('.DisksContainer').getBoundingClientRect();
         if (e.initial[0] < (containerRect.left + containerRect.right) / 2) {
           rotateDisk(-1);
@@ -259,14 +264,5 @@ const ReactDisks = (props) => {
     </ThemeProvider>
   );
 };
-
-ReactDisks.defaultProps = {
-  theme: {
-    light: "#90caf9",
-    main: "#1e88e5",
-    dark: "#0d47a1"
-  },
-  swipeContainer: ".ReactDisks"
-}
 
 export default ReactDisks;
