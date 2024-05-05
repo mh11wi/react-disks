@@ -46,6 +46,14 @@ const ReactDisksStyled = styled.div`
       }
     `
   }
+  
+  ${props => Math.min(props.width, props.height) / Math.max(props.width, props.height) > 0.75 &&
+    `
+      .rotateClockwise, .rotateCounterClockwise {
+        font-size: 2.5rem !important;
+      }
+    `
+  }
 `;
 
 const RotateButton = styled.button`

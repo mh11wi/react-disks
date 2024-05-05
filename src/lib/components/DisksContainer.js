@@ -19,7 +19,7 @@ const DisksContainer = (props) => {
     const height = props.height || 100;
     
     let maxRadius = Math.min(width, height);
-    if (width > height + 180 || height > width + 180) {
+    if (Math.min(width, height) / Math.max(width, height) <= 0.75) {
       maxRadius *= 0.475;
     } else {
       maxRadius *= 0.375;
@@ -35,9 +35,15 @@ const DisksContainer = (props) => {
   }
 
   const getTrueIndex = (event, index) => {
+    const html = document.querySelectorAll('html')[0];
+    const matrix = window.getComputedStyle(html).transform;
+    const matrixArray = matrix.replace("matrix(", "").split(",");
+    let scale = parseFloat(matrixArray[0]);
+    scale = isNaN(scale) ? 1.0 : scale;
+    
     const targetCenter = getElementCenter(event.target);
     for (let i = index; i < props.disksText.length; i++) {
-      const radius = getRadius(i);
+      const radius = getRadius(i) * scale;
       const inDisk = isPointInCircle(
         event.clientX,
         event.clientY,
